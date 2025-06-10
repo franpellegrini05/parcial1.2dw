@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diseño y Desarrollo Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
+  </style>
+  <script>
+    function aplicarTema() {
+      const temaGuardado = localStorage.getItem('theme');
+      const sistemaPrefiereOscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (temaGuardado) {
+        document.documentElement.classList.toggle('dark', temaGuardado === 'dark');
+      } else {
+        document.documentElement.classList.toggle('dark', sistemaPrefiereOscuro);
+      }
+    }
+    aplicarTema();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (!localStorage.getItem('theme')) {
+        aplicarTema();
+      }
+    });
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+
+  <header class="p-4 bg-gray-100 dark:bg-gray-900 shadow-md w-full flex items-center justify-between">
+    <h1 class="text-2xl font-semibold text-blue-600 dark:text-blue-400">Mi Cursada - UADE</h1>
+    <nav class="flex flex-wrap gap-4 text-blue-600 dark:text-blue-400">
+      <a href="index.html">Home</a>
+      <a href="avisos.html">Avisos</a>
+      <a href="sobremi.html">Sobre mí</a>
+      <a href="materias.html">Materias</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 mb-8 w-full">
+    <div class="w-full max-w-4xl">
+      <h2 class="text-3xl font-semibold text-blue-700 mb-8 text-center">Diseño y Desarrollo Web</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Fechas de Exámenes -->
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Fechas de exámenes</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>25/04/2025: Examen Parcial</li>
+            <li>13/06/2025: Segundo Parcial</li>
+          </ul>
+        </div>
+        <!-- Actividades UVAs -->
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Actividades UVAs</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><a href="https://virtualbsp.uade.edu.ar/d2l/le/content/43569/Home?itemIdentifier=D2L.LE.Content.ContentObject.ModuleCO-557745" target="_blank" class="text-blue-600 underline hover:text-blue-800">Ejercitacion UVA1</a></li>
+            <li><a href="https://virtualbsp.uade.edu.ar/d2l/le/content/43569/Home?itemIdentifier=D2L.LE.Content.ContentObject.ModuleCO-557746" target="_blank" class="text-blue-600 underline hover:text-blue-800">Ejercitacion UVA2</a></li>
+          </ul>
+        </div>
+        <!-- Bibliografía -->
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 md:col-span-2">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Bibliografía</h3>
+          <p class="text-gray-500 dark:text-gray-400 italic">Próximamente...</p>
+        </div>
+      </div>
+      <div class="text-center text-gray-600 dark:text-gray-300 text-sm mt-10">
+        Curso: 15130 / Profesora: Patricia Litovicius
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-200 dark:bg-gray-800 text-center p-6 mt-auto w-full">
+    <button id="toggleTheme" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+      Cambiar aspecto
+    </button>
+    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+      Tema actual: <span id="modoActual">Cargando...</span>
+    </p>
+    <p class="mt-2 text-xs text-gray-600 dark:text-gray-400">&copy; 2025 - Copyright - Francesco Pellegrini</p>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const boton = document.getElementById('toggleTheme');
+    const modoTexto = document.getElementById('modoActual');
+
+    function actualizarTexto() {
+      const tema = html.classList.contains('dark') ? 'Oscuro' : 'Claro';
+      modoTexto.textContent = tema;
+    }
+
+    boton.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const nuevoTema = html.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', nuevoTema);
+      actualizarTexto();
+    });
+
+    actualizarTexto(); // Mostrar el texto al cargar la página
+  </script>
+</body>
+</html>
